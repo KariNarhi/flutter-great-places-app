@@ -30,6 +30,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //print("initialLocation: ${widget.initialLocation.address}");
     return Scaffold(
       appBar: AppBar(
         title: Text("Your Map"),
@@ -62,7 +63,7 @@ class _MapScreenState extends State<MapScreen> {
                   position: _pickedLocation ??
                       LatLng(
                         widget.initialLocation.latitude,
-                        widget.initialLocation.latitude,
+                        widget.initialLocation.longitude,
                       ),
                 ),
               },
