@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:favorite_places_app/screens/places.dart';
 
-import './providers/great_places.dart';
-import './screens/places_list_screen.dart';
-import './screens/add_place_screen.dart';
-import './screens/place_detail_screen.dart';
+final colorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 102, 6, 247),
+  surface: const Color.fromARGB(255, 56, 49, 66),
+);
 
-void main() => runApp(MyApp());
+final theme = ThemeData().copyWith(
+  appBarTheme: const AppBarTheme().copyWith(backgroundColor: Colors.black54),
+  scaffoldBackgroundColor: colorScheme.surface,
+  colorScheme: colorScheme,
+  textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
+    titleSmall: GoogleFonts.ubuntuCondensed(fontWeight: FontWeight.bold),
+    titleMedium: GoogleFonts.ubuntuCondensed(fontWeight: FontWeight.bold),
+    titleLarge: GoogleFonts.ubuntuCondensed(fontWeight: FontWeight.bold),
+  ),
+);
+
+void main() {
+  runApp(const ProviderScope(child: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: GreatPlaces(),
-      child: MaterialApp(
-        title: 'Great Places',
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          accentColor: Colors.amber,
-        ),
-        home: PlacesListScreen(),
-        routes: {
-          AddPlaceScreen.routeName: (ctx) => AddPlaceScreen(),
-          PlaceDetailsScreen.routeName: (ctx) => PlaceDetailsScreen(),
-        },
-      ),
+    return MaterialApp(
+      title: 'Great Places',
+      theme: theme,
+      home: const PlacesScreen(),
     );
   }
 }
